@@ -1,8 +1,11 @@
-import { Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, MenuItem, Radio, RadioGroup, Switch, TextField } from '@mui/material';
+import AbcIcon from '@mui/icons-material/Abc';
+import PublicIcon from '@mui/icons-material/Public';
+import { Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, InputAdornment, MenuItem, Radio, RadioGroup, Switch, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Country from '../classes/Country';
 import User from '../classes/User';
 import './Registration.css';
+
 
 type RegistrationProps = {
     countryAPI: string
@@ -93,10 +96,12 @@ const Registration = (props: RegistrationProps) => {
                     label='Full name'
                     color='secondary'
                     type='text'
+                    error={!formData.name}
                     value={formData.name}
                     onChange={onDataCapture}
                     name='name'
-                    helperText='Your final name'
+                    inputProps={{ startAdornment: <InputAdornment position="start"><AbcIcon /></InputAdornment> }}
+                    helperText='Required'
                     required
                 />
 
@@ -107,21 +112,23 @@ const Registration = (props: RegistrationProps) => {
                         onChange={onDataCapture}
                         name='exp'
                         row>
-                        <FormControlLabel control={<Radio size='small' color='secondary' />} label='0-2' value='0-2' />
-                        <FormControlLabel control={<Radio size='small' color='secondary' />} label='2-5' value='2-5' />
-                        <FormControlLabel control={<Radio size='small' color='secondary' />} label='5-7' value='5-7' />
-                        <FormControlLabel control={<Radio size='small' color='secondary' />} label='10-12' value='10-12' />
+                        <FormControlLabel control={<Radio size='small' color='secondary' required />} label='0-2' value='0-2' />
+                        <FormControlLabel control={<Radio size='small' color='secondary' required />} label='2-5' value='2-5' />
+                        <FormControlLabel control={<Radio size='small' color='secondary' required />} label='5-7' value='5-7' />
+                        <FormControlLabel control={<Radio size='small' color='secondary' required />} label='10-12' value='10-12' />
                     </RadioGroup>
                 </FormControl>
 
                 <TextField
                     color='success'
-                    helperText='Select country'
+                    helperText='Required    '
                     label='country'
                     variant='filled'
                     value={formData.country}
                     onChange={onDataCapture}
                     name='country'
+                    error={!formData.country}
+                    inputProps={{ endAdornment: <InputAdornment position='end' ><PublicIcon /></InputAdornment> }}
                     required
                     select
                     fullWidth >
