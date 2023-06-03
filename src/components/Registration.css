@@ -1,0 +1,15 @@
+.registration {
+    display: flex;
+    /* margin-top: 10px; */
+    justify-content: center;
+    align-items: center;
+  }
+
+.formControl{
+    background-color: #F5F5F5;
+}  
+
+.registrationButtons{
+  width: '20px';
+  margin: 0 12px;
+}
