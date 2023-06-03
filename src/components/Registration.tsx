@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, MenuItem, Radio, RadioGroup, Switch, TextField } from '@mui/material';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Country from '../classes/Country';
 import User from '../classes/User';
 import './Registration.css';
@@ -18,9 +18,10 @@ const Registration = (props: RegistrationProps) => {
         passport: false
     })
 
+    const [agreement, setAgreement] = useState<boolean>(false);
+
     const handleSkillChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value, checked } = event.target;
-
         setFormData((formData) => {
             let updatedSkills;
 
@@ -39,16 +40,40 @@ const Registration = (props: RegistrationProps) => {
         });
     };
 
-    // ...
-
 
     const onDataCapture = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.name === 'passport') {
+            setFormData({
+                ...formData,
+                [event.target.name]: event.target.checked
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [event.target.name]: event.target.value
+            });
+        }
+    }
+
+    const handleReset = () => {
+        console.log("Reset clicked")
         setFormData({
-            ...formData,
-            [event.target.name]: event.target.value
+            name: '',
+            exp: '',
+            country: '',
+            skills: [],
+            passport: false
         });
-        console.log(event.target.name)
-        console.log(event.target.value)
+    }
+
+    const handleSubmit = () => {
+        console.log({ formData });
+        handleReset();
+    }
+
+    const handleAgreement = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const checked = event.target.checked;
+        setAgreement(checked);
     }
 
     const [countryData, setCountryData] = useState<Country[]>([])
@@ -123,12 +148,12 @@ const Registration = (props: RegistrationProps) => {
                     </FormGroup>
                 </FormControl>
 
-                <FormControlLabel control={<Switch color='warning' name='passport' checked={formData.passport} />} label='Do you have a passport ?' labelPlacement='end' required />
-                <FormControlLabel control={<Checkbox color='info' />} label='Agree terms and conditions.' labelPlacement='end' required />
+                <FormControlLabel control={<Switch color='warning' name='passport' checked={formData.passport} onChange={onDataCapture} />} label='Do you have a passport ?' labelPlacement='end' required />
+                <FormControlLabel control={<Checkbox color='info' name='agreement' checked={agreement} onChange={handleAgreement} />} label='Agree terms and conditions.' labelPlacement='end' required />
 
                 <Box>
-                    <Button variant='outlined' color='success' sx={{ width: '70px' }} type='submit'>Submit</Button>
-                    <Button variant='outlined' color='warning' sx={{ width: '70px' }} type='reset'>Reset</Button>
+                    <Button variant='outlined' color='success' className='registrationButtons' type='submit' onClick={handleSubmit} disabled={!formData.name || !formData.exp || !formData.country || !formData.passport || formData.skills.length === 0 || !agreement}>Submit</Button>
+                    <Button variant='outlined' color='warning' className='registrationButtons' type='reset' onClick={handleReset}>Reset</Button>
                 </Box>
 
             </FormControl>

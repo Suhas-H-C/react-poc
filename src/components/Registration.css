@@ -8,3 +8,8 @@
 .formControl{
     background-color: #F5F5F5;
 }  
+
+.registrationButtons{
+  width: '20px';
+  margin: 0 12px;
+}
