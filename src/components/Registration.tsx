@@ -1,5 +1,4 @@
 import AbcIcon from '@mui/icons-material/Abc';
-import PublicIcon from '@mui/icons-material/Public';
 import { Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, InputAdornment, MenuItem, Radio, RadioGroup, Switch, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Country from '../classes/Country';
@@ -8,7 +7,8 @@ import './Registration.css';
 
 
 type RegistrationProps = {
-    countryAPI: string
+    countryAPI: string,
+    submitAPI: string
 }
 
 const Registration = (props: RegistrationProps) => {
@@ -71,6 +71,18 @@ const Registration = (props: RegistrationProps) => {
 
     const handleSubmit = () => {
         console.log({ formData });
+
+        //Calling backend service
+        fetch(props.submitAPI, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        }).then(res => res.json())
+            .then(response => console.log(response))
+            .catch(err => console.error(err));
+
         handleReset();
     }
 
@@ -100,8 +112,13 @@ const Registration = (props: RegistrationProps) => {
                     value={formData.name}
                     onChange={onDataCapture}
                     name='name'
-                    inputProps={{ startAdornment: <InputAdornment position="start"><AbcIcon /></InputAdornment> }}
-                    helperText='Required'
+                    inputProps={{
+                        startAdornment: {
+                          position: 'start',
+                          children: <AbcIcon />,
+                        },
+                      }}
+                    helperText={!formData.name ? 'Required' : ''}
                     required
                 />
 
@@ -121,14 +138,13 @@ const Registration = (props: RegistrationProps) => {
 
                 <TextField
                     color='success'
-                    helperText='Required    '
+                    helperText={!formData.country ? 'Required' : ''}
                     label='country'
                     variant='filled'
                     value={formData.country}
                     onChange={onDataCapture}
                     name='country'
                     error={!formData.country}
-                    inputProps={{ endAdornment: <InputAdornment position='end' ><PublicIcon /></InputAdornment> }}
                     required
                     select
                     fullWidth >
