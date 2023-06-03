@@ -16,7 +16,7 @@ type RegistrationProps = {
 }
 
 const Registration = (props: RegistrationProps) => {
-    
+
     const handleSkillChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value, checked } = event.target;
         props.setFormData((formData: { skills: any[]; }) => {
@@ -107,6 +107,7 @@ const Registration = (props: RegistrationProps) => {
                         value={props.formData.name}
                         onChange={onDataCapture}
                         name='name'
+                        //TODO - changes not reflected
                         inputProps={{
                             startAdornment: {
                                 position: 'start',
