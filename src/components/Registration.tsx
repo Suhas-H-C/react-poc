@@ -3,7 +3,6 @@ import { Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLa
 import React, { useEffect, useState } from 'react';
 import Country from '../classes/Country';
 import User from '../classes/User';
-import './Registration.css';
 
 
 type RegistrationProps = {
