@@ -1,4 +1,4 @@
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowSelectionModel, GridToolbar } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 
 type ClientsProps = {
@@ -7,7 +7,9 @@ type ClientsProps = {
 
 const Clients = (props: ClientsProps) => {
     const [clientsData, setClientsData] = useState<[]>([]);
-
+    const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
+    const dataRows: [] = clientsData;
+console.log({rowSelectionModel})
     useEffect(() => {
         fetch(props.clientsDataUrl)
             .then(result => result.json())
@@ -15,8 +17,6 @@ const Clients = (props: ClientsProps) => {
             .catch(err => console.error(err));
 
     }, [props.clientsDataUrl])
-
-    const dataRows: [] = clientsData;
 
     const dataColumns: GridColDef[] = [
         { field: 'id', headerName: "Unique Id", sortable: true },
@@ -28,17 +28,24 @@ const Clients = (props: ClientsProps) => {
         // { field: 'address.street', headerName: "Street", sortable: true },
     ]
 
-
     return (
         <>
             <DataGrid
                 rows={dataRows}
                 columns={dataColumns}
                 initialState={{
-                    pagination: {paginationModel: {page:0, pageSize:5}}
+                    pagination: { paginationModel: { page: 0, pageSize: 5 } }
                 }}
 
-                pageSizeOptions={[5,10]}
+                pageSizeOptions={[5, 10]}
+                checkboxSelection
+                slots={{
+                    toolbar: GridToolbar
+                }}
+                rowSelectionModel={rowSelectionModel}
+                onRowSelectionModelChange={(newRowSelectionModel) => {
+                    setRowSelectionModel(newRowSelectionModel);
+                }}
                 disableRowSelectionOnClick
             />
         </>
