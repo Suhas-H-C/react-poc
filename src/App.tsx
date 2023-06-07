@@ -1,8 +1,8 @@
+import { Container } from "@mui/material";
 import { useState } from "react";
 import User from "./classes/User";
-import Registration from "./components/Registration";
 import Clients from "./components/Clients";
-import { Container, Grid } from "@mui/material";
+import Registration from "./components/Registration";
 
 function App() {
   const submit = 'http://localhost:8091/poc/user';
@@ -30,8 +30,6 @@ function App() {
         setFormData={setFormData}
         agreement={agreement}
         setAgreement={setAgreement} />
-
-      
     </Container>
   );
 }

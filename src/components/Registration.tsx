@@ -97,7 +97,6 @@ const Registration = (props: RegistrationProps) => {
     return (
         <Box className='registration'>
             <FormControl sx={{ marginTop: '10px', padding: '15px', backgroundColor: '#F5F5F5' }} >
-                <Grid>
                     <TextField
                         label='Full name'
                         color='secondary'
@@ -117,10 +116,6 @@ const Registration = (props: RegistrationProps) => {
                         required
                     />
 
-                </Grid>
-
-                <Grid>
-
                     <FormControl>
                         <FormLabel id='job-exp'>Work experiance</FormLabel>
                         <RadioGroup aria-labelledby='job-exp' color='warning'
@@ -134,10 +129,7 @@ const Registration = (props: RegistrationProps) => {
                             <FormControlLabel control={<Radio size='small' color='warning' required />} label='10-12' value='10-12' />
                         </RadioGroup>
                     </FormControl>
-                </Grid>
 
-
-                <Grid>
 
                     <TextField
                         color='success'
@@ -155,7 +147,6 @@ const Registration = (props: RegistrationProps) => {
                             return <MenuItem key={c.id} value={c.code}>{c.country}</MenuItem>
                         })}
                     </TextField>
-                </Grid>
 
                 <FormControl>
                     <FormLabel color='info'>Skills</FormLabel>
