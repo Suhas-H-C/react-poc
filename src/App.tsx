@@ -6,7 +6,7 @@ import { Container, Grid } from "@mui/material";
 
 function App() {
   const submit = 'http://localhost:8091/poc/user';
-  const countryAPI = 'https://run.mocky.io/v3/f9621b2e-0431-4d86-bd22-ba799f29c64c';
+  const countryAPI = 'https://run.mocky.io/v3/f9621b2e-0431-4d86-bd22-ba799f29c64c'; //Invalid
   const clientsDataUrl = 'https://jsonplaceholder.typicode.com/users';
 
   const [formData, setFormData] = useState<User>({
@@ -21,6 +21,8 @@ function App() {
 
   return (
     <Container>
+      <Clients clientsDataUrl={clientsDataUrl} />
+
       <Registration
         countryAPI={countryAPI}
         submitAPI={submit}
@@ -29,7 +31,7 @@ function App() {
         agreement={agreement}
         setAgreement={setAgreement} />
 
-      <Clients clientsDataUrl={clientsDataUrl} />
+      
     </Container>
   );
 }

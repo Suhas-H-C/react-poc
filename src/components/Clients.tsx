@@ -9,7 +9,7 @@ const Clients = (props: ClientsProps) => {
     const [clientsData, setClientsData] = useState<[]>([]);
     const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
     const dataRows: [] = clientsData;
-console.log({rowSelectionModel})
+
     useEffect(() => {
         fetch(props.clientsDataUrl)
             .then(result => result.json())
